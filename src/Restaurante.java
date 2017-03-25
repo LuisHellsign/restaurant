@@ -75,7 +75,8 @@ public class Restaurante {
     
     public int CalcularDescuento()
     {
-        descuento = (valorFijo * calcularPorcentaje())/100;
+        int porcentaje = calcularPorcentaje();
+        descuento = (valorFijo * porcentaje)/100;
         return descuento;
     }
     
