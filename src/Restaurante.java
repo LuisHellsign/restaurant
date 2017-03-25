@@ -40,34 +40,36 @@ public class Restaurante {
         Estudiante unEstudiante = new Estudiante(nom,cod,pl,d);
         listaEstudiantes[estu] = unEstudiante;
         estu = estu + 1;
-        
-        
-        
     }
     
     public int calcularPorcentaje()
     {
-        String primLetra = listaEstudiantes[estu-1].sacarPrimeraLetradeNombre();
-        String ultimoD = listaEstudiantes[estu-1].sacarUltimodigitoCodigo();
-        int cant1 = listaEstudiantes[estu-1].contarNoUno();
-        int cant5 = listaEstudiantes[estu-1].contarNoCinco();
-        String dia = listaEstudiantes[estu-1].enviarDia();
-        String plan = listaEstudiantes[estu-1].enviarPlan();
+        int position = BuscarPorCodigo();
         int porcentaje=0;
         
-        if(dia.equalsIgnoreCase("miercoles") && primLetra.equalsIgnoreCase("l")&& plan.equals("2711"))
-        {
-            porcentaje = 20;
-        }  
-        if((dia.equalsIgnoreCase("lunes") ||dia.equalsIgnoreCase("viernes")) && (cant1>=2 || cant5 >=2))
-        {
-            porcentaje = 25;
-        } 
-        if(dia.equalsIgnoreCase("jueves") && ultimoD.equals("0")&&(plan.equals("3743")||plan.equals("3742")||plan.equals("2712")||plan.equals("3744")))
-        {
-            porcentaje = 50;
-        } 
-        return porcentaje;
+        if(position != -1){
+            String primLetra = listaEstudiantes[position].sacarPrimeraLetradeNombre();
+            String ultimoD = listaEstudiantes[position].sacarUltimodigitoCodigo();
+            int cant1 = listaEstudiantes[position].contarNoUno();
+            int cant5 = listaEstudiantes[position].contarNoCinco();
+            String dia = listaEstudiantes[position].enviarDia();
+            String plan = listaEstudiantes[position].enviarPlan();
+            if(dia.equalsIgnoreCase("miercoles") && primLetra.equalsIgnoreCase("l")&& plan.equals("2711"))
+            {
+                porcentaje = 20;
+            }  
+            if((dia.equalsIgnoreCase("lunes") ||dia.equalsIgnoreCase("viernes")) && (cant1>=2 || cant5 >=2))
+            {
+                porcentaje = 25;
+            } 
+            if(dia.equalsIgnoreCase("jueves") && ultimoD.equals("0")&&(plan.equals("3743")||plan.equals("3742")||plan.equals("2712")||plan.equals("3744")))
+            {
+                porcentaje = 50;
+            }
+            return porcentaje;
+        } else {
+            return porcentaje;
+        }
     }
     
     public int CalcularDescuento()
@@ -88,24 +90,23 @@ public class Restaurante {
         return ImpriRecibo;
     }
     
-    public String BuscarPorCodigo()
-            
+    // devuelve la posición del estudiante dentro del arreglo de estudiantes
+    public int BuscarPorCodigo()      
     {
-    String x;
-           x = JOptionPane.showInputDialog("Ingrese el Codigo a buscar");
-        //   codig = listaEstudiante[estu-1].enviarCodigo();
-       //for( x = 0; x = listaEstudiantes[estu-1]; x++){
-         //  if( x == listaEstudiantes[estu-1].enviarCodigo().length()) {
-           
-      //}    
-       
-     // }
+        String code = JOptionPane.showInputDialog("Ingrese el Codigo a buscar");
+        int position = 0;
         
+        for(int i=0; i<=listaEstudiantes.length; i++){
+            String id = listaEstudiantes[i].enviarCodigo();
+            boolean condition = Integer.parseInt(id) == Integer.parseInt(code);
+            if(condition){
+                position = i;
+            } else {
+                position = -1;
+            }
+        }
         
-        
-         return x;
-        
-      
+         return position;
     }
     
    
