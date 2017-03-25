@@ -1,6 +1,7 @@
 /*
  * Clase que representa el restaurante de la universidad del valle
  */
+import java.util.Objects;
 import javax.swing.*;
 /**
  * @author Leoviviana Moreno
@@ -98,9 +99,10 @@ public class Restaurante {
         
         for(int i=0; i<=listaEstudiantes.length; i++){
             String id = listaEstudiantes[i].enviarCodigo();
-            boolean condition = Integer.parseInt(id) == Integer.parseInt(code);
-            if(condition){
+            if(Objects.equals(id, code) == true)
+            {
                 position = i;
+                return position;
             } else {
                 position = -1;
             }
